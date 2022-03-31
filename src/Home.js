@@ -5,7 +5,9 @@ const Home = () => {
   const [blogs, setBlogs] = useState([
     { title: 'Friend or Best Friend?', body: 'lorem ipsum...', author: 'winston', id: 1 },
     { title: 'Toy party!', body: 'lorem ipsum...', author: 'teegan', id: 2 },
-    { title: 'Beggine for more food tips', body: 'lorem ipsum...', author: 'dave', id: 3 }
+    { title: 'How to Beg for More Food', body: 'lorem ipsum...', author: 'dave', id: 3 },
+    { title: 'You are a Good Boy', body: 'lorem ipsum...', author: 'winston', id: 4 },
+    { title: 'Play hard, Nap hard', body: 'lorem ipsum...', author: 'teegan', id: 5 }
   ]);
 
   const handleDelete = (id) => {
@@ -15,7 +17,7 @@ const Home = () => {
 
   useEffect(() => {
     console.log('use effect ran')
-  });
+  }, []);
 
   return ( 
     <div className="home">
