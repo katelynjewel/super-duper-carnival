@@ -2,13 +2,7 @@ import { useState, useEffect } from 'react';
 import BlogDetails from './BlogDetails';
 
 const Home = () => {
-  const [blogs, setBlogs] = useState([
-    { title: 'Friend or Best Friend?', body: 'lorem ipsum...', author: 'winston', id: 1 },
-    { title: 'Toy party!', body: 'lorem ipsum...', author: 'teegan', id: 2 },
-    { title: 'How to Beg for More Food', body: 'lorem ipsum...', author: 'dave', id: 3 },
-    { title: 'You are a Good Boy', body: 'lorem ipsum...', author: 'winston', id: 4 },
-    { title: 'Play hard, Nap hard', body: 'lorem ipsum...', author: 'teegan', id: 5 }
-  ]);
+  const [blogs, setBlogs] = useState(null);
 
   const handleDelete = (id) => {
     const newBlogs = blogs.filter(blog => blog.id !== id);
@@ -16,12 +10,18 @@ const Home = () => {
   }
 
   useEffect(() => {
-    console.log('use effect ran')
+    fetch('http://localhost:8000/blogs')
+      .then(res => {
+        return res.json()
+      })
+      .then((data) => {
+        console.log(data)
+      })
   }, []);
 
   return ( 
     <div className="home">
-      <BlogDetails blogs={blogs} handleDelete={handleDelete} title="All Blogs!"/>
+      {/* <BlogDetails blogs={blogs} handleDelete={handleDelete} title="All Blogs!"/> */}
     </div>
   );
 }
