@@ -1,14 +1,31 @@
-const BlogDetails = ({blogs, title, handleDelete}) => {
+import { useParams, useHistory } from "react-router-dom/";
+import useFetch from "./useFetch";
+
+const BlogDetails = () => {
+  const { id } = useParams();
+  const { data: blog, error, isLoading } = useFetch('http://localhost:8000/blogs/' + id)
+  const history = useHistory();
+
+  const handleClick = () => {
+    fetch('http://localhost:8000/blogs/' + blog.id, {
+      method: 'DELETE'
+    }).then(() => {
+      history.push('/')
+    })
+  }
 
   return ( 
-    <div className="blog-list">
-            <h2>{ title }</h2>
-            {blogs.map((blog) => (
-        <div className="blog-preview" key={blog.id}>
+    <div className="blog-details">
+      { isLoading && <div>Loading...</div> }
+      { error && <div>{ error }</div> }
+      { blog && (
+        <article>
           <h2>{ blog.title }</h2>
-          <p> Written by: { blog.author }</p>
-        </div>
-      ))}
+          <p>Written by: { blog.author }</p>
+          <div>{ blog.body }</div>
+          <button onClick={handleClick}>Delete</button>
+        </article>
+      )}
     </div>
   );
 }
